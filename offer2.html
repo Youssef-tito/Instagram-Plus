@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram Plus</title>
+  <style>
+    .success-msg {
+      display: none;
+      background-color: #10B981;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الرسالة الخضراء المخفية -->
+  <div id="msg" class="success-msg">
+    Tu auras bientôt tes achats.
+  </div>
+
+  <h2>Instagram Plus</h2>
+  <p>0,99 $US / mois</p>
+
+  <button id="btnBuy" style="background-color: #0064e0; color: white; padding: 12px 24px; border: none; border-radius: 20px; cursor: pointer;">
+    Essayer pour 0,00 $US
+  </button>
+
+  <script>
+    document.getElementById('btnBuy').addEventListener('click', function() {
+      // إظهار الرسالة الخضراء عند الضغط
+      document.getElementById('msg').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
