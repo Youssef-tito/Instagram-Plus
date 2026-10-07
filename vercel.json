@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/userlist", "destination": "/index.html" }
+  ]
+}
