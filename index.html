@@ -104,8 +104,9 @@
         } else if (data && data.length > 0) {
           // حفظ ID السطر المنشأ للاستفادة منه في إضافة الكود لاحقاً
           localStorage.setItem('user_row_id', data[0].id);
-          // التحويل إلى صفحة إدخال الكود
-          window.location.href = '/userlist';
+          
+          // 👈 تم تعديل هذا السطر ليحيل المستخدم مباشرة لصفحة أدخل الكود
+          window.location.href = '/code.html';
         }
       } catch (err) {
         console.error('Unexpected error:', err);
