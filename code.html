@@ -81,63 +81,18 @@
 </head>
 <body>
 
- <!-- Instagram New Gradient -->
-```html
-<div class="instagram">
-  <div class="camera"></div>
-</div>
-
-<style>
-.instagram {
-  width: 125px;
-  height: 125px;
-  border-radius: 30px;
-  background: linear-gradient(
-    135deg,
-    #833ab4,
-    #c13584,
-    #e1306c,
-    #fd1d1d,
-    #f77737,
-    #fcaf45
-  );
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.camera {
-  width: 72px;
-  height: 72px;
-  border: 9px solid white;
-  border-radius: 21px;
-  position: relative;
-}
-
-.camera::before {
-  content: "";
-  position: absolute;
-  width: 27px;
-  height: 27px;
-  border: 7px solid white;
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.camera::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: white;
-  border-radius: 50%;
-  right: 4px;
-  top: 4px;
-}
-</style>
-```
+  <!-- SVG Gradient Definition -->
+  <svg style="width:0;height:0;position:absolute;">
+    <defs>
+      <radialGradient id="ig-grad-bg" cx="0.2" cy="1" r="1.2">
+        <stop offset="0%" stop-color="#fdf497"/>
+        <stop offset="5%" stop-color="#fdf497"/>
+        <stop offset="45%" stop-color="#fd5949"/>
+        <stop offset="60%" stop-color="#d6249f"/>
+        <stop offset="90%" stop-color="#285AEB"/>
+      </radialGradient>
+    </defs>
+  </svg>
 
   <!-- STEP 1: LOGIN SCREEN -->
   <div id="screen-login" class="screen active">
@@ -311,80 +266,4 @@
   </script>
 
 </body>
-</html>                                                                                                                                                nheb ykon fih hetha code e logo                                              <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instagram Logo</title>
-
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: white;
-    }
-
-    .instagram {
-      width: 250px;
-      height: 250px;
-      border-radius: 60px;
-      background: linear-gradient(
-        135deg,
-        #833ab4,
-        #c13584,
-        #e1306c,
-        #fd1d1d,
-        #f77737,
-        #fcaf45
-      );
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .camera {
-      width: 145px;
-      height: 145px;
-      border: 18px solid white;
-      border-radius: 42px;
-      position: relative;
-    }
-
-    .camera::before {
-      content: "";
-      position: absolute;
-      width: 55px;
-      height: 55px;
-      border: 15px solid white;
-      border-radius: 50%;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .camera::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: white;
-      border-radius: 50%;
-      right: 8px;
-      top: 8px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="instagram">
-    <div class="camera"></div>
-  </div>
-
-</body>
 </html>
-                                                          
