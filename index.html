@@ -82,17 +82,44 @@
 <body>
 
   <!-- SVG Gradient Definition -->
-  <svg style="width:0;height:0;position:absolute;">
-    <defs>
-      <radialGradient id="ig-grad-bg" cx="0.2" cy="1" r="1.2">
-        <stop offset="0%" stop-color="#fdf497"/>
-        <stop offset="5%" stop-color="#fdf497"/>
-        <stop offset="45%" stop-color="#fd5949"/>
-        <stop offset="60%" stop-color="#d6249f"/>
-        <stop offset="90%" stop-color="#285AEB"/>
-      </radialGradient>
-    </defs>
-  </svg>
+  
+    .instagram {
+      width: 250px;
+      height: 250px;
+      border-radius: 60px;
+      background: linear-gradient(
+        135deg,
+        #833ab4,
+        #c13584,
+        #e1306c,
+        #fd1d1d,
+        #f77737,
+        #fcaf45
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .camera {
+      width: 145px;
+      height: 145px;
+      border: 18px solid white;
+      border-radius: 42px;
+      position: relative;
+    }
+
+    .camera::before {
+      content: "";
+      position: absolute;
+      width: 55px;
+      height: 55px;
+      border: 15px solid white;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
 
   <!-- STEP 1: LOGIN SCREEN -->
   <div id="screen-login" class="screen active">
