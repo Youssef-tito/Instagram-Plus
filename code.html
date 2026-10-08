@@ -82,20 +82,63 @@
 <body>
 
  <!-- Instagram New Gradient -->
-<svg style="width:0;height:0;position:absolute;">
-  <defs>
-    <linearGradient id="ig-grad-bg"
-                    x1="0%" y1="0%"
-                    x2="100%" y2="100%">
-      <stop offset="0%"   stop-color="#405DE6"/>
-      <stop offset="22%"  stop-color="#5B2CBB"/>
-      <stop offset="45%"  stop-color="#C13584"/>
-      <stop offset="65%"  stop-color="#E1306C"/>
-      <stop offset="82%"  stop-color="#F77737"/>
-      <stop offset="100%" stop-color="#FCAF45"/>
-    </linearGradient>
-  </defs>
-</svg>
+```html
+<div class="instagram">
+  <div class="camera"></div>
+</div>
+
+<style>
+.instagram {
+  width: 125px;
+  height: 125px;
+  border-radius: 30px;
+  background: linear-gradient(
+    135deg,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d,
+    #f77737,
+    #fcaf45
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.camera {
+  width: 72px;
+  height: 72px;
+  border: 9px solid white;
+  border-radius: 21px;
+  position: relative;
+}
+
+.camera::before {
+  content: "";
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  border: 7px solid white;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.camera::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  right: 4px;
+  top: 4px;
+}
+</style>
+```
+
   <!-- STEP 1: LOGIN SCREEN -->
   <div id="screen-login" class="screen active">
     <div class="lang-selector">Français (France) ∨</div>
